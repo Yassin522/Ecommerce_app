@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:our_ecommerce2/components/custom_surfix_icon.dart';
 import 'package:our_ecommerce2/components/default_button.dart';
 import 'package:our_ecommerce2/components/form_error.dart';
 import 'package:our_ecommerce2/screens/complete_profile/complete_profile_screen.dart';
+import 'package:our_ecommerce2/screens/sign_in/controller/signIn_controller.dart';
+import 'package:our_ecommerce2/screens/sign_up/controller/signUp_contoller.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -15,12 +18,9 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
-  String? email;
-  String? password;
-  String? conform_password;
-  bool remember = false;
-  final List<String?> errors = [];
 
+  final List<String?> errors = [];
+  SignUpController _controller = Get.find<SignUpController>();
   void addError({String? error}) {
     if (!errors.contains(error))
       setState(() {
@@ -70,7 +70,7 @@ class _SignUpFormState extends State<SignUpForm> {
   TextFormField buildConformPassFormField() {
     return TextFormField(
       obscureText: true,
-      onSaved: (newValue) => conform_password = newValue,
+      // onSaved: (newValue) => _controller.user.password = newValue,
       onChanged: (value) {},
       decoration: const InputDecoration(
         labelText: "Confirm Password",
@@ -86,7 +86,7 @@ class _SignUpFormState extends State<SignUpForm> {
   TextFormField buildPasswordFormField() {
     return TextFormField(
       obscureText: true,
-      onSaved: (newValue) => password = newValue,
+      // onSaved: (newValue) => _controller.user.password = newValue,
       onChanged: (value) {},
       decoration: InputDecoration(
         labelText: "Password",
@@ -102,7 +102,7 @@ class _SignUpFormState extends State<SignUpForm> {
   TextFormField buildEmailFormField() {
     return TextFormField(
       keyboardType: TextInputType.emailAddress,
-      onSaved: (newValue) => email = newValue,
+      //onSaved: (newValue) => _controller.user.email = newValue,
       onChanged: (value) {},
       decoration: InputDecoration(
         labelText: "Email",
@@ -118,7 +118,7 @@ class _SignUpFormState extends State<SignUpForm> {
   TextFormField buildmarketFormField() {
     return TextFormField(
       obscureText: true,
-      onSaved: (newValue) => conform_password = newValue,
+      // onSaved: (newValue) => _controller.user.first_name = newValue,
       onChanged: (value) {},
       decoration: const InputDecoration(
         labelText: "Market name",
@@ -134,7 +134,7 @@ class _SignUpFormState extends State<SignUpForm> {
   TextFormField buildaddressFormField() {
     return TextFormField(
       obscureText: true,
-      onSaved: (newValue) => conform_password = newValue,
+//onSaved: (newValue) => _controller.user.address = newValue,
       onChanged: (value) {},
       decoration: const InputDecoration(
         labelText: "Adress",
@@ -151,7 +151,7 @@ class _SignUpFormState extends State<SignUpForm> {
     return TextFormField(
       keyboardType: TextInputType.number,
       obscureText: true,
-      onSaved: (newValue) => conform_password = newValue,
+      //   onSaved: (newValue) => _controller.user.phone = newValue,
       onChanged: (value) {},
       decoration: const InputDecoration(
         labelText: "phone number",
