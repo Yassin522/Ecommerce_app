@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:our_ecommerce2/routes/app_routes.dart';
 
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
       // We use routeName so that we dont need to remember the name
       initialRoute: AppPages.INITIAL,
       getPages: AppPages.routes,
+      builder: EasyLoading.init(),
     );
   }
 }

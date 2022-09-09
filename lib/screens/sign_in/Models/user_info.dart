@@ -64,13 +64,15 @@ class UserInfo {
   factory UserInfo.fromMap(Map<String, dynamic> map) {
     return UserInfo(
       user_name: map['user_name'] != null ? map['user_name'] as String : null,
-      id: map['id'] != null ? map['id'] as String : null,
+      id: map['id'] != null ? map['id'].toString() as String : null,
       email: map['email'] != null ? map['email'] as String : null,
       market_name:
           map['market_name'] != null ? map['market_name'] as String : null,
-      number_phone:
-          map['number_phone'] != null ? map['number_phone'] as String : null,
-      role_id: map['role_id'] != null ? map['role_id'] as String : null,
+      number_phone: map['number_phone'] != null
+          ? map['number_phone'].toString() as String
+          : null,
+      role_id:
+          map['role_id'] != null ? map['role_id'].toString() as String : null,
       token: map['token'] != null ? map['token'] as String : null,
       email_verified_at: map['email_verified_at'] != null
           ? map['email_verified_at'] as String

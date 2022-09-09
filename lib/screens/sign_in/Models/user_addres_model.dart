@@ -38,10 +38,11 @@ class UserAddressModel {
 
   factory UserAddressModel.fromMap(Map<String, dynamic> map) {
     return UserAddressModel(
-      id: map['id'] != null ? map['id'] as String : null,
+      id: map['id'] != null ? map['id'].toString() as String : null,
       city: map['city'] != null ? map['city'] as String : null,
       address: map['address'] != null ? map['address'] as String : null,
-      user_id: map['user_id'] != null ? map['user_id'] as String : null,
+      user_id:
+          map['user_id'] != null ? map['user_id'].toString() as String : null,
     );
   }
 

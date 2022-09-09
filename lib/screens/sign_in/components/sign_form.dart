@@ -1,5 +1,5 @@
-import 'package:bloc/bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:our_ecommerce2/components/custom_surfix_icon.dart';
 import 'package:our_ecommerce2/components/form_error.dart';
@@ -21,21 +21,23 @@ class _SignFormState extends State<SignForm> {
   final _formKey = GlobalKey<FormState>();
   bool? remember = false;
 
-  SigninController _controller = Get.find<SigninController>();
+  final SigninController _controller = Get.find<SigninController>();
   final List<String?> errors = [];
 
   void addError({String? error}) {
-    if (!errors.contains(error))
+    if (!errors.contains(error)) {
       setState(() {
         errors.add(error);
       });
+    }
   }
 
   void removeError({String? error}) {
-    if (errors.contains(error))
+    if (errors.contains(error)) {
       setState(() {
         errors.remove(error);
       });
+    }
   }
 
   @override
@@ -50,23 +52,28 @@ class _SignFormState extends State<SignForm> {
           SizedBox(height: getProportionateScreenHeight(30)),
           Row(
             children: [
-              Checkbox(
-                value: remember,
-                activeColor: kPrimaryColor,
-                onChanged: (value) {
-                  _controller.remmberMe = value!;
-                },
-              ),
-              Text("تذكرني"),
-              Spacer(),
+              GetBuilder(
+                  init: SigninController(),
+                  builder: (_) {
+                    return Checkbox(
+                      value: _controller.remmberMe,
+                      activeColor: kPrimaryColor,
+                      onChanged: (value) {
+                        _controller.remmberMe = value!;
+                        _controller.update();
+                      },
+                    );
+                  }),
+              const Text("تذكرني"),
+              const Spacer(),
               GestureDetector(
                 onTap: () => Navigator.pushNamed(
                     context, ForgotPasswordScreen.routeName),
-                child: Text(
+                child: const Text(
                   "نسيت كلمة المرور؟",
                   style: TextStyle(decoration: TextDecoration.underline),
                 ),
-              )
+              ),
             ],
           ),
           FormError(errors: errors),
@@ -78,8 +85,11 @@ class _SignFormState extends State<SignForm> {
                 _formKey.currentState!.save();
                 // if all are valid then go to success screen
                 KeyboardUtil.hideKeyboard(context);
+                EasyLoading.show(
+                  dismissOnTap: true,
+                );
                 await _controller.logIn();
-                Navigator.pushNamed(context, LoginSuccessScreen.routeName);
+                EasyLoading.showSuccess('Welcome!');
               }
             },
           ),

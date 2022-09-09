@@ -1,3 +1,3 @@
 class ServicesConfig {
-  static const domainName = 'http://127.0.0.1:8000/api/';
+  static const domainName = 'http://192.168.43.171:8000/api/';
 }

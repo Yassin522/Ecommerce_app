@@ -13,14 +13,16 @@ class SignInServices {
     String password,
   ) async {
     try {
-      var response = await http.post(
-        Uri.parse('${ServicesConfig.domainName}auth/login'),
-        body:
-            jsonEncode(<String, String>{'email': email, 'password': password}),
-      );
-
+      print('${ServicesConfig.domainName}auth/login');
+      var response = await http
+          .post(Uri.parse('${ServicesConfig.domainName}auth/login'), body: {
+        'email': email,
+        'password': password,
+      });
+      print(response.statusCode);
+      print(response.body);
       if (response.statusCode == 200) {
-        var body = jsonDecode(response.body);
+        var body = response.body;
         var user = UserModel.fromJson(body);
         return user;
       } else {
@@ -28,6 +30,7 @@ class SignInServices {
       }
     } catch (e) {
       print('wleeeeeeeeeeee');
+      print(e);
       return null;
     }
   }

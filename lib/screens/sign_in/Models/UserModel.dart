@@ -1,6 +1,8 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart';
+
 import 'package:our_ecommerce2/screens/sign_in/Models/user_addres_model.dart';
 import 'package:our_ecommerce2/screens/sign_in/Models/user_info.dart';
 
@@ -9,7 +11,7 @@ class UserModel {
   String? token_type;
   String? expires_in;
   UserInfo? user;
-  UserAddressModel? address;
+  List<UserAddressModel>? address;
   UserModel({
     this.access_token,
     this.token_type,
@@ -23,7 +25,7 @@ class UserModel {
     String? token_type,
     String? expires_in,
     UserInfo? user,
-    UserAddressModel? address,
+    List<UserAddressModel>? address,
   }) {
     return UserModel(
       access_token: access_token ?? this.access_token,
@@ -40,7 +42,7 @@ class UserModel {
       'token_type': token_type,
       'expires_in': expires_in,
       'user': user?.toMap(),
-      'address': address?.toMap(),
+      'address': address!.map((x) => x.toMap()).toList(),
     };
   }
 
@@ -50,13 +52,18 @@ class UserModel {
           map['access_token'] != null ? map['access_token'] as String : null,
       token_type:
           map['token_type'] != null ? map['token_type'] as String : null,
-      expires_in:
-          map['expires_in'] != null ? map['expires_in'] as String : null,
+      expires_in: map['expires_in'] != null
+          ? map['expires_in'].toString() as String
+          : null,
       user: map['user'] != null
           ? UserInfo.fromMap(map['user'] as Map<String, dynamic>)
           : null,
       address: map['address'] != null
-          ? UserAddressModel.fromMap(map['address'] as Map<String, dynamic>)
+          ? List<UserAddressModel>.from(
+              (map['address']).map<UserAddressModel?>(
+                (x) => UserAddressModel.fromMap(x as Map<String, dynamic>),
+              ),
+            )
           : null,
     );
   }
@@ -79,7 +86,7 @@ class UserModel {
         other.token_type == token_type &&
         other.expires_in == expires_in &&
         other.user == user &&
-        other.address == address;
+        listEquals(other.address, address);
   }
 
   @override
