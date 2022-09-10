@@ -1,103 +1,54 @@
 import 'package:flutter/material.dart';
 
-class Product {
-  final int id;
-  final String title, description;
-  final List<String> images;
-  final List<Color> colors;
-  final double rating, price;
-  final bool isFavourite, isPopular;
 
-  Product({
-    required this.id,
-    required this.images,
-    required this.colors,
-    this.rating = 0.0,
-    this.isFavourite = false,
-    this.isPopular = false,
-    required this.title,
-    required this.price,
-    required this.description,
-  });
+class Product {
+  late int id;
+ late String name;
+ late String description;
+late  List<String>  images;
+late  String status;
+late  String size;
+late  int price;
+late  int categoryId;
+
+  Product(
+      {
+      required this.id,
+      required this.name,
+      required this.description,
+      required this.images,
+      required this.status,
+      required this.size,
+      required this.price,
+      required this.categoryId,
+      
+      });
+
+  Product.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    name = json['name'];
+    description = json['description'];
+    images = json['image'];
+    status = json['status'];
+    size = json['size'];
+    price = json['price'];
+    categoryId = json['category_id'];
+   
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['name'] = this.name;
+    data['description'] = this.description;
+    data['image'] = this.images;
+    data['status'] = this.status;
+    data['size'] = this.size;
+    data['price'] = this.price;
+    data['category_id'] = this.categoryId;
+  
+    return data;
+  }
 }
 
-// Our demo Products
 
-List<Product> demoProducts = [
-  Product(
-    id: 1,
-    images: [
-      "assets/images/ps4_console_white_1.png",
-      "assets/images/ps4_console_white_2.png",
-      "assets/images/ps4_console_white_3.png",
-      "assets/images/ps4_console_white_4.png",
-    ],
-    colors: [
-      Color(0xFFF6625E),
-      Color(0xFF836DB8),
-      Color(0xFFDECB9C),
-      Colors.white,
-    ],
-    title: "Wireless Controller for PS4™",
-    price: 64.99,
-    description: description,
-    rating: 4.8,
-    isFavourite: true,
-    isPopular: true,
-  ),
-  Product(
-    id: 2,
-    images: [
-      "assets/images/Image Popular Product 2.png",
-    ],
-    colors: [
-      Color(0xFFF6625E),
-      Color(0xFF836DB8),
-      Color(0xFFDECB9C),
-      Colors.white,
-    ],
-    title: "Nike Sport White - Man Pant",
-    price: 50.5,
-    description: description,
-    rating: 4.1,
-    isPopular: true,
-  ),
-  Product(
-    id: 3,
-    images: [
-      "assets/images/glap.png",
-    ],
-    colors: [
-      Color(0xFFF6625E),
-      Color(0xFF836DB8),
-      Color(0xFFDECB9C),
-      Colors.white,
-    ],
-    title: "Gloves XC Omega - Polygon",
-    price: 36.55,
-    description: description,
-    rating: 4.1,
-    isFavourite: true,
-    isPopular: true,
-  ),
-  Product(
-    id: 4,
-    images: [
-      "assets/images/wireless headset.png",
-    ],
-    colors: [
-      Color(0xFFF6625E),
-      Color(0xFF836DB8),
-      Color(0xFFDECB9C),
-      Colors.white,
-    ],
-    title: "Logitech Head",
-    price: 20.20,
-    description: description,
-    rating: 4.1,
-    isFavourite: true,
-  ),
-];
-
-const String description =
-    "Wireless Controller for PS4™ gives you what you want in your gaming from over precision control your games to sharing …";

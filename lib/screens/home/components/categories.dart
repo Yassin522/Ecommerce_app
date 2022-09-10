@@ -1,32 +1,52 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+import 'package:our_ecommerce2/screens/home/hpme_controller.dart';
 
 import '../../../size_config.dart';
 
 class Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    List<Map<String, dynamic>> categories = [
-      {"icon": "assets/icons/Flash Icon.svg", "text": "Flash Deal"},
-      {"icon": "assets/icons/Bill Icon.svg", "text": "Bill"},
-      {"icon": "assets/icons/Game Icon.svg", "text": "Game"},
-      {"icon": "assets/icons/Gift Icon.svg", "text": "Daily Gift"},
-      {"icon": "assets/icons/Discover.svg", "text": "More"},
-    ];
+  
     return Padding(
       padding: EdgeInsets.all(getProportionateScreenWidth(20)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: List.generate(
-          categories.length,
-          (index) => CategoryCard(
-            icon: categories[index]["icon"],
-            text: categories[index]["text"],
-            press: () {},
-          ),
-        ),
-      ),
+      child: GetBuilder(
+          init: HomeController(),
+          builder: (HomeController c) {
+            return FutureBuilder(
+              future: c.loadCategories(),
+              builder: ((context, AsyncSnapshot snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: Text('Loading...'));
+                }
+                 
+                  return c.categories.isEmpty
+                                  ? const SizedBox(
+                                      height: 50,
+                                      child: Center(
+                                        child:  Text(
+                                          'NO Categories',
+                                        
+                                        ),
+                                      ),
+                                    )
+                                  :
+                 Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: List.generate(
+                    c.categories.length,
+                    (index) => CategoryCard(
+                      icon: c.categories[index].image,
+                      text: c.categories[index].name,
+                      press: () {},
+                    ),
+                  ),
+                );
+              }),
+            );
+          }),
     );
   }
 }

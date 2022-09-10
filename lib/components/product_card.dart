@@ -43,49 +43,27 @@ class ProductCard extends StatelessWidget {
                   ),
                   child: Hero(
                     tag: product.id.toString(),
-                    child: Image.asset(product.images[0]),
+                    child: Image(image: NetworkImage('http://192.168.43.86:8000/upload/product/${product.images}'), fit: BoxFit.cover,),
                   ),
                 ),
               ),
               const SizedBox(height: 10),
-              Text(
-                product.title,
-                style: TextStyle(color: Colors.black),
-                maxLines: 2,
+              Center(
+                child: Text(
+                  product.name,
+                  style: TextStyle(color: Colors.black),
+                  maxLines: 2,
+                ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "\$${product.price}",
-                    style: TextStyle(
-                      fontSize: getProportionateScreenWidth(18),
-                      fontWeight: FontWeight.w600,
-                      color: kPrimaryColor,
-                    ),
+              Center(
+                child: Text(
+                  "${product.price}ل.س",
+                  style: TextStyle(
+                    fontSize: getProportionateScreenWidth(18),
+                    fontWeight: FontWeight.w600,
+                    color: kPrimaryColor,
                   ),
-                  InkWell(
-                    borderRadius: BorderRadius.circular(50),
-                    onTap: () {},
-                    child: Container(
-                      padding: EdgeInsets.all(getProportionateScreenWidth(8)),
-                      height: getProportionateScreenWidth(28),
-                      width: getProportionateScreenWidth(28),
-                      decoration: BoxDecoration(
-                        color: product.isFavourite
-                            ? kPrimaryColor.withOpacity(0.15)
-                            : kSecondaryColor.withOpacity(0.1),
-                        shape: BoxShape.circle,
-                      ),
-                      child: SvgPicture.asset(
-                        "assets/icons/Heart Icon_2.svg",
-                        color: product.isFavourite
-                            ? Color(0xFFFF4848)
-                            : Color(0xFFDBDEE4),
-                      ),
-                    ),
-                  ),
-                ],
+                ),
               )
             ],
           ),

@@ -5,9 +5,8 @@ import 'package:our_ecommerce2/constants.dart';
 import '../../../size_config.dart';
 
 class CustomAppBar extends StatelessWidget {
-  final double rating;
 
-  CustomAppBar({required this.rating});
+ 
 
   @override
   // AppBar().preferredSize.height provide us the height that appy on our app bar
@@ -41,7 +40,7 @@ class CustomAppBar extends StatelessWidget {
               ),
             ),
             Spacer(),
-            Container(
+           /* Container(
               padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 5),
               decoration: BoxDecoration(
                 color: Colors.white,
@@ -60,7 +59,7 @@ class CustomAppBar extends StatelessWidget {
                   SvgPicture.asset("assets/icons/Star Icon.svg"),
                 ],
               ),
-            )
+            )*/
           ],
         ),
       ),

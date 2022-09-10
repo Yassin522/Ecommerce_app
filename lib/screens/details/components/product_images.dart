@@ -28,11 +28,11 @@ class _ProductImagesState extends State<ProductImages> {
             aspectRatio: 1,
             child: Hero(
               tag: widget.product.id.toString(),
-              child: Image.asset(widget.product.images[selectedImage]),
+              child: Image(image: NetworkImage('http://192.168.43.86:8000/upload/product/${widget.product.images}'),)
             ),
           ),
         ),
-        // SizedBox(height: getProportionateScreenWidth(20)),
+        SizedBox(height: getProportionateScreenWidth(20)),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -63,7 +63,7 @@ class _ProductImagesState extends State<ProductImages> {
           border: Border.all(
               color: kPrimaryColor.withOpacity(selectedImage == index ? 1 : 0)),
         ),
-        child: Image.asset(widget.product.images[index]),
+        child: Image(image: NetworkImage('http://192.168.43.86:8000/upload/product/${widget.product.images}'),),
       ),
     );
   }

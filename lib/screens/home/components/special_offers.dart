@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../size_config.dart';
+import '../hpme_controller.dart';
 import 'section_title.dart';
 
 class SpecialOffers extends StatelessWidget {
@@ -23,23 +25,48 @@ class SpecialOffers extends StatelessWidget {
         SizedBox(height: getProportionateScreenWidth(20)),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          child: Row(
-            children: [
-              SpecialOfferCard(
-                image: "assets/images/Image Banner 2.png",
-                category: "Smartphone",
-                numOfBrands: 18,
+          child:
+GetBuilder(
+          init: HomeController(),
+          builder: (HomeController controller) {
+            return
+          FutureBuilder(
+              future: controller.loadCategories(),
+
+              builder: ((context, AsyncSnapshot snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: Text('Loading...'));
+                }
+          
+          return  controller.categories.isEmpty
+                                  ? const SizedBox(
+                                      height: 50,
+                                      child: Center(
+                                        child:  Text(
+                                          'NO Categories',
+                                        
+                                        ),
+                                      ),
+                                    )
+                                  :
+          
+           Row(
+            children: 
+            List.generate(
+                    controller.categories.length,
+                    (index) =>  SpecialOfferCard(
+                image: controller.categories[index].image,
+                category: controller.categories[index].name,
                 press: () {},
               ),
-              SpecialOfferCard(
-                image: "assets/images/Image Banner 3.png",
-                category: "Fashion",
-                numOfBrands: 24,
-                press: () {},
-              ),
-              SizedBox(width: getProportionateScreenWidth(20)),
-            ],
-          ),
+                  ),
+            
+          );
+              }
+              )
+          );
+          }
+),
         ),
       ],
     );
@@ -51,12 +78,10 @@ class SpecialOfferCard extends StatelessWidget {
     Key? key,
     required this.category,
     required this.image,
-    required this.numOfBrands,
     required this.press,
   }) : super(key: key);
 
   final String category, image;
-  final int numOfBrands;
   final GestureTapCallback press;
 
   @override
@@ -72,10 +97,8 @@ class SpecialOfferCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(20),
             child: Stack(
               children: [
-                Image.asset(
-                  image,
-                  fit: BoxFit.cover,
-                ),
+              Image(image: NetworkImage('http://192.168.43.86:8000/upload/category/$image'),  fit: BoxFit.cover),
+              
                 Container(
                   decoration: BoxDecoration(
                     gradient: LinearGradient(
@@ -104,7 +127,7 @@ class SpecialOfferCard extends StatelessWidget {
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        TextSpan(text: "$numOfBrands Brands")
+                       
                       ],
                     ),
                   ),

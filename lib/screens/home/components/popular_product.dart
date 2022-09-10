@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:our_ecommerce2/components/product_card.dart';
 import 'package:our_ecommerce2/models/Product.dart';
 
 import '../../../size_config.dart';
+import '../hpme_controller.dart';
 import 'section_title.dart';
 
 class PopularProducts extends StatelessWidget {
@@ -18,21 +20,53 @@ class PopularProducts extends StatelessWidget {
         SizedBox(height: getProportionateScreenWidth(20)),
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
-          child: Row(
+          child:
+
+          GetBuilder(
+          init: HomeController(),
+          builder: (HomeController c) {
+            return
+          
+           FutureBuilder(
+              future: c.loadProducts(),
+
+              builder: ((context, AsyncSnapshot snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Center(child: Text('Loading...'));
+                }
+
+                 return  c.productss.isEmpty
+                                  ? const SizedBox(
+                                      height: 50,
+                                      child: Center(
+                                        child:  Text(
+                                          'لا يوجد منتجات',
+                                        
+                                        ),
+                                      ),
+                                    )
+                                  :
+          
+           Row(
             children: [
               ...List.generate(
-                demoProducts.length,
+                c.productss.length,
                 (index) {
-                  if (demoProducts[index].isPopular)
-                    return ProductCard(product: demoProducts[index]);
-
-                  return SizedBox
-                      .shrink(); // here by default width and height is 0
+        
+                    return ProductCard(product: c.productss[index]);
                 },
               ),
               SizedBox(width: getProportionateScreenWidth(20)),
             ],
+          );
+              }
+           ),
+           );
+          }
           ),
+
+
+
         )
       ],
     );
