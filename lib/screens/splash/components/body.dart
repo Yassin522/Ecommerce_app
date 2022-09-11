@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:our_ecommerce2/constants.dart';
+import 'package:our_ecommerce2/routes/app_routes.dart';
 import 'package:our_ecommerce2/screens/sign_in/sign_in_screen.dart';
 import 'package:our_ecommerce2/size_config.dart';
 
@@ -66,7 +68,7 @@ class _BodyState extends State<Body> {
                     DefaultButton(
                       text: "تابع",
                       press: () {
-                        Navigator.pushNamed(context, SignInScreen.routeName);
+                        Get.toNamed(AppPages.signin);
                       },
                     ),
                     Spacer(),

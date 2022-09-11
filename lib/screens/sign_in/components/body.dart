@@ -34,7 +34,7 @@ class Body extends StatelessWidget {
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
                 SignForm(),
                 SizedBox(height: SizeConfig.screenHeight * 0.08),
-                Row(
+                /*Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     SocalCard(
@@ -50,7 +50,7 @@ class Body extends StatelessWidget {
                       press: () {},
                     ),
                   ],
-                ),
+                ),*/
                 SizedBox(height: getProportionateScreenHeight(20)),
                 NoAccountText(),
               ],

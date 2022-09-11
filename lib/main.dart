@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
+import 'package:our_ecommerce2/routes/app_routes.dart';
 
 import 'package:our_ecommerce2/theme.dart';
 
@@ -21,8 +23,10 @@ class MyApp extends StatelessWidget {
       theme: theme(),
       // home: SplashScreen(),
       // We use routeName so that we dont need to remember the name
-      initialRoute: HomeScreen.routeName,
-      routes: routes,
+
+      initialRoute: AppPages.INITIAL,
+      getPages: AppPages.routes,
+      builder: EasyLoading.init(),
     );
   }
 }
